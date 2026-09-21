@@ -4,8 +4,8 @@ services:
     image: flask-docker-app:2.0
     ports:
       - "8080:5000"
-    env_file:
-      - .env.dev
+    secrets:
+      - pg_password
     environment:
       - APP_VERSION=2.0.0
       - DB_HOST=postgres

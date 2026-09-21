@@ -3,12 +3,21 @@ import os
 from psycopg_pool import ConnectionPool
 
 
+def read_secret(path, fallback_env):
+    if os.path.exists(path):
+        return open(path).read().strip()
+    return os.environ.get(fallback_env)
+
+
+db_password = read_secret('/run/secrets/pg_password', 'DB_PASSWORD')
+
+
 def db_connect():
     url = (
         f"host={os.environ.get('DB_HOST')} "
         f"dbname={os.environ.get('DB_DATABASE')} "
         f"user={os.environ.get('DB_USER')} "
-        f"password={os.environ.get('DB_PASSWORD')}"
+        f"password={db_password}"
     )
     pool = ConnectionPool(url)
     pool.wait()
