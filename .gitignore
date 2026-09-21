@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Secretos (no versionar)
+.env.dev
+pg_password.txt
+
+# Capturas del informe
+imagenes/
